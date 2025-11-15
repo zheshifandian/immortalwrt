@@ -155,9 +155,9 @@ my %update_method = (
 		'update'	=> "",
 		'revision'	=> "echo -n 'dummy'"},
 	'src-git' => {
-		'init'          => "git clone --depth 1 '%s' '%s'",
-		'init_branch'   => "git clone --depth 1 --branch '%s' '%s' '%s'",
-		'init_commit'   => "git clone --depth 1 '%s' '%s' && cd '%s' && git fetch --depth=1 origin '%s' && git -c advice.detachedHead=false checkout '%s' && cd -",
+		'init'          => "git clone --depth 2 '%s' '%s'",
+		'init_branch'   => "git clone --depth 2 --branch '%s' '%s' '%s'",
+		'init_commit'   => "git clone --depth 2 '%s' '%s' && cd '%s' && git fetch --depth=2 origin '%s' && git -c advice.detachedHead=false checkout '%s' && cd -",
 		'update'	=> "git pull --ff-only",
 		'update_rebase'	=> "git pull --rebase=merges",
 		'update_stash'	=> "git pull --rebase=merges --autostash",
