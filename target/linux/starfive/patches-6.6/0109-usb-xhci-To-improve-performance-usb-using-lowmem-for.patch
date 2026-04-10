@@ -143,7 +143,7 @@ Signed-off-by: minda.chen <minda.chen@starfivetech.com>
  	 * something other than the default (~1ms minimum between interrupts).
 --- a/drivers/usb/host/xhci-plat.c
 +++ b/drivers/usb/host/xhci-plat.c
-@@ -253,6 +253,14 @@ int xhci_plat_probe(struct platform_devi
+@@ -254,6 +254,14 @@ int xhci_plat_probe(struct platform_devi
  		if (device_property_read_bool(tmpdev, "xhci-sg-trb-cache-size-quirk"))
  			xhci->quirks |= XHCI_SG_TRB_CACHE_SIZE_QUIRK;
  
@@ -160,7 +160,7 @@ Signed-off-by: minda.chen <minda.chen@starfivetech.com>
  	}
 --- a/drivers/usb/host/xhci-ring.c
 +++ b/drivers/usb/host/xhci-ring.c
-@@ -3721,7 +3721,8 @@ int xhci_queue_bulk_tx(struct xhci_hcd *
+@@ -3722,7 +3722,8 @@ int xhci_queue_bulk_tx(struct xhci_hcd *
  
  	full_len = urb->transfer_buffer_length;
  	/* If we have scatter/gather list, we use it. */
@@ -181,7 +181,7 @@ Signed-off-by: minda.chen <minda.chen@starfivetech.com>
  
  #include "xhci.h"
  #include "xhci-trace.h"
-@@ -1312,6 +1314,55 @@ static void xhci_unmap_temp_buf(struct u
+@@ -1314,6 +1316,55 @@ static void xhci_unmap_temp_buf(struct u
  	urb->transfer_buffer = NULL;
  }
  
@@ -237,7 +237,7 @@ Signed-off-by: minda.chen <minda.chen@starfivetech.com>
  /*
   * Bypass the DMA mapping if URB is suitable for Immediate Transfer (IDT),
   * we'll copy the actual data into the TRB address register. This is limited to
-@@ -1332,9 +1383,11 @@ static int xhci_map_urb_for_dma(struct u
+@@ -1334,9 +1385,11 @@ static int xhci_map_urb_for_dma(struct u
  		if (xhci_urb_temp_buffer_required(hcd, urb))
  			return xhci_map_temp_buffer(hcd, urb);
  	}
@@ -249,7 +249,7 @@ Signed-off-by: minda.chen <minda.chen@starfivetech.com>
  static void xhci_unmap_urb_for_dma(struct usb_hcd *hcd, struct urb *urb)
  {
  	struct xhci_hcd *xhci;
-@@ -1347,8 +1400,10 @@ static void xhci_unmap_urb_for_dma(struc
+@@ -1349,8 +1402,10 @@ static void xhci_unmap_urb_for_dma(struc
  
  	if ((xhci->quirks & XHCI_SG_TRB_CACHE_SIZE_QUIRK) && unmap_temp_buf)
  		xhci_unmap_temp_buf(hcd, urb);
@@ -277,16 +277,16 @@ Signed-off-by: minda.chen <minda.chen@starfivetech.com>
  /* There is one xhci_hcd structure per controller */
  struct xhci_hcd {
  	struct usb_hcd *main_hcd;
-@@ -1660,6 +1667,8 @@ struct xhci_hcd {
- #define XHCI_CDNS_SCTX_QUIRK	BIT_ULL(48)
+@@ -1661,6 +1668,8 @@ struct xhci_hcd {
  #define XHCI_ETRON_HOST	BIT_ULL(49)
+ #define XHCI_LIMIT_ENDPOINT_INTERVAL_9 BIT_ULL(50)
  
 +#define XHCI_LOCAL_BUFFER	BIT_ULL(63)
 +
  	unsigned int		num_active_eps;
  	unsigned int		limit_active_eps;
  	struct xhci_port	*hw_ports;
-@@ -1689,6 +1698,8 @@ struct xhci_hcd {
+@@ -1690,6 +1699,8 @@ struct xhci_hcd {
  	struct list_head	regset_list;
  
  	void			*dbc;
